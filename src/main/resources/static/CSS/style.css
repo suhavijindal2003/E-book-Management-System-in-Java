@@ -1,0 +1,66 @@
+/* Custom Navbar Styling */
+#navbar {
+    background-color: #004085 !important; /* Dark Blue Background */
+    border-bottom: 3px solid #007bff; /* Optional: Add a border */
+}
+
+/* Style for Navbar Links */
+#navbar .nav-link {
+    color: white !important; /* Ensures text color stays white */
+    font-weight: bold;
+}
+
+#navbar .nav-link:hover {
+    color: #3f8ede !important; /* Light hover effect */
+}
+.setbtn:hover{
+    background-color: #007bff !important;
+}
+
+/* Background Image for Main Container */
+.main {
+    background-image: url('../images/booklogo.jpg');  /* Replace with your actual image path */
+    background-size: cover; /* Ensures the image covers the entire div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents image repetition */
+    min-height: 400px; /* Adjust height as needed */
+    display: flex;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    color: rgb(250, 252, 250); /* Ensures text is readable */
+    text-align: center; /* Centers text */
+   
+}
+.crd{
+    background-color: #f7f7f7;
+}
+.crd-h0:hover{
+    background-color: #fcf7f7;
+}
+
+.dashboard-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.dashboard-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.dashboard-card i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+.footer {
+    background-color: #0d6efd;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+
+
+
