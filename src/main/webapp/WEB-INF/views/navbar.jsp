@@ -32,7 +32,7 @@
                     <li class="nav-item"><a class="nav-link fs-5" href="/oldbooks">Old Book</a></li>
                 </ul>
                 <form class="d-flex p-2" role="search">
-                    <a href="#" class="setbtn btn rounded bg-light me-2">
+                    <a href="/Setting" class="setbtn btn rounded bg-light me-2">
                         <i class="fa-solid fa-gear p-1" style="color: #00040a;"></i> Setting
                     </a>
                     <a href="#" class="setbtn btn rounded bg-light">

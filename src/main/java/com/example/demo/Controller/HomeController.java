@@ -71,4 +71,10 @@ public class HomeController {
     public String newbooks() {
         return "newbooks";
     }
+
+    @GetMapping("/Setting")
+    public String Setting() {
+        return "Setting";
+    }
+    
 }
