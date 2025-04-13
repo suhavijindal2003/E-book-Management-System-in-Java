@@ -23,9 +23,9 @@
             <body style="background-color: #f7f7f7;">
 
                 <div class="container">
-                    <h3 class="text-center">Hello, Pabitra</h3>
+                    <h3 class="text-center"></h3>
                     <div class="row p-5">
-                        <div class="col-md-6">
+                        <div class="col-md-6 p-4">
                             <a href="sell-book.jsp">
                                 <div class="card">
                                     <div class="card-body text-center">
@@ -39,7 +39,7 @@
                         </div>
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 p-4">
                             <a href="edit_profile.jsp">
                                 <div class="card">
                                     <div class="card-body text-center">
@@ -52,7 +52,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-6 mt=3">
+                        <div class="col-md-4 mt-3">
                             <a href="">
                                 <div class="card">
                                     <div class="card-body text-center">
@@ -66,7 +66,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-6 mt=3">
+                        <div class="col-md-4 mt-3">
                             <a href="">
                                 <div class="card">
                                     <div class="card-body text-center">
@@ -81,7 +81,7 @@
                         </div>
 
 
-                        <div class="col-md-6 mt=3">
+                        <div class="col-md-4 mt-3">
                             <a href="">
                                 <div class="card">
                                     <div class="card-body text-center">

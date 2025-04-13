@@ -22,7 +22,7 @@
 <div class="crd">
     <div class=" main container-fluid ">
         <h2 class="fs-1 fw-bold "> <i class="fa-solid fa-book p-2"
-                style="color: #198811;; margin-bottom: 200px;"></i>E-Book Management System</h2>
+                style="color: #198811;; margin-bottom: 200px;"></i>BookHub Resource Platform</h2>
     </div>
 
 

@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-3">
                 <h3 class="fs-1 text-success fw-bold"> 
-                    <i class="fa-solid fa-book p-1" style="color: #198811;"></i>E-Book
+                    <i class="fa-solid fa-book p-1" style="color: #198811;"></i>BookHub
                 </h3>
             </div>
             <div class="col-md-6">

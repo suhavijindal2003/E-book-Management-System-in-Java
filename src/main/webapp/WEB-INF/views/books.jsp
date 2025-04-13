@@ -39,10 +39,10 @@
             </tbody>
         </table>
 
-        <div class="text-center mt-3">
+        <div class="text-center m-6`p-5">
             <a href="/add_book" class="btn btn-primary">Add New Book</a>
         </div>
     </div>
 </body>
 </html>
-<%@ include file="footer.jsp" %>
+<!-- <%@ include file="footer.jsp" %> -->
