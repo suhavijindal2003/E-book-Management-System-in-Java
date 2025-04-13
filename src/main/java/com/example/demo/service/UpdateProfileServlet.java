@@ -12,14 +12,12 @@ public class UpdateProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
         String phone = req.getParameter("phone");
         String address = req.getParameter("address");
-
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setPhone(phone);
-        user.setAddress(address);
+        User user = new User(id,name, email,password, phone,address);
+      
 
         UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
         HttpSession session = req.getSession();

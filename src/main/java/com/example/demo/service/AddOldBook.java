@@ -29,7 +29,7 @@ public class AddOldBook extends HttpServlet {
         book.setPrice(Double.parseDouble(price));
         book.setEmail(user.getEmail());
 
-        BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
+        BookOrderImpl dao = new BookOrderImpl(DBConnect.getConn());
         if (dao.addBook(book)) {
             session.setAttribute("succMsg", "Book added successfully.");
             res.sendRedirect("sell_book.jsp");

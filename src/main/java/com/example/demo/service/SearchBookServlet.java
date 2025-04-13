@@ -15,7 +15,7 @@ public class SearchBookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String search = req.getParameter("ch");
 
-        BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
+        BookOrderImpl dao = new BookOrderImpl(DBConnect.getConn());
         List<Book> list = dao.searchBooks(search);
 
         req.setAttribute("bookList", list);

@@ -24,8 +24,27 @@ public User(String name, String email, String phno, String password) {
     this.email = email;
     this.phno = phno;
     this.password = password;
+  
 }
 
+public User(int id, String name, String email,String password, String phno, String address) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.phno = phno;
+    this.address = address;
+   
+}
+public User(String name, String email,String password, String phno, String address) {
+   
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.phno = phno;
+    this.address = address;
+   
+}
 
     // Parameterized Constructor
     public User(int id, String name, String email, String password, String phno, 

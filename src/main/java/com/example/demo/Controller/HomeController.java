@@ -76,5 +76,12 @@ public class HomeController {
     public String Setting() {
         return "Setting";
     }
-    
+    @GetMapping("/view_cart")
+    public String viewCart() {
+        return "view_cart";
+    }
+    @GetMapping("/edit_profile")
+    public String editProfile() {
+        return "edit_profile";
+    }
 }

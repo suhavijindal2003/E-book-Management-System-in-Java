@@ -13,9 +13,9 @@ public class DeleteOldBook extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
 
-        BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
+        BookOrderImpl dao = new BookOrderImpl(DBConnect.getConn());
         HttpSession session = req.getSession();
-        if (dao.deleteBook(id)) {
+        if (dao.deleteBookById(id)) {
             session.setAttribute("succMsg", "Book deleted.");
         } else {
             session.setAttribute("failMsg", "Failed to delete book.");
