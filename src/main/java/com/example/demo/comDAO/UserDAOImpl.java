@@ -1,9 +1,14 @@
 package com.example.demo.comDAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.example.demo.model.User;
 
-public class UserDAOImpl implements UserDAO {
+
+public class UserDAOImpl implements UserController {
     private Connection conn;
 
     public UserDAOImpl(Connection conn) {
@@ -49,12 +54,12 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(2, password);  // Consider hashing and comparing hashed passwords
             rs = ps.executeQuery();
             if (rs.next()) {
-                user = new User();
+                User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
-                user.setEmail(email);
-                user.setPassword(password);  // Store the raw password or hash appropriately
-                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));  // Store the raw password or hash appropriately
+                user.setPhno(rs.getString("phone"));
                 user.setAddress(rs.getString("address"));
             }
         } catch (SQLException e) {
@@ -78,7 +83,7 @@ public class UserDAOImpl implements UserDAO {
             String sql = "UPDATE users SET name=?, phone=?, address=? WHERE id=?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getName());
-            ps.setString(2, user.getPhone());
+            ps.setString(2, user.getPhno());
             ps.setString(3, user.getAddress());
             ps.setInt(4, user.getId());
 

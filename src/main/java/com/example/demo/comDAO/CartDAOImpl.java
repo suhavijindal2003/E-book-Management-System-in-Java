@@ -1,14 +1,15 @@
 package com.example.demo.comDAO;
 
-import java.sql.*;
-import java.util.*;
-import com.example.demo.model.Cart;
-import com.example.demo.repository.DBConnect;
-import com.example.demo.service.CartServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CartDAOImpl implements CartDAO {
+import com.example.demo.model.Cart;
+
+public class CartDAOImpl implements cartdao {
     private Connection conn;
 
     // Constructor to initialize the connection
