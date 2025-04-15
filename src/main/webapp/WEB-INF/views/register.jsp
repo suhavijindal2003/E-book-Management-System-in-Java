@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
 <%@ include file="navbar.jsp" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,20 +10,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    
+
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqB7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
-
-  
 
     <div class="container py-3">
         <div class="row">
@@ -29,45 +25,65 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-center fw-bold text-dark p-2 rounded">Registration</h3>
-                        
+
+                        <!-- ✅ Show Success/Failure Message -->
+                        <%
+                            String succMsg = (String) session.getAttribute("succMsg");
+                            String failMsg = (String) session.getAttribute("failMsg");
+                            if (succMsg != null) {
+                        %>
+                            <div class="alert alert-success" role="alert"><%= succMsg %></div>
+                        <%
+                                session.removeAttribute("succMsg");
+                            } else if (failMsg != null) {
+                        %>
+                            <div class="alert alert-danger" role="alert"><%= failMsg %></div>
+                        <%
+                                session.removeAttribute("failMsg");
+                            }
+                        %>
+
+                        <!-- ✅ Registration Form -->
                         <form action="register" method="post">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name">
-                            </div>
-    
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone">
-                            </div>
-    
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                            </div>
-    
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
 
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
                             </div>
-    
-                            <button type="submit" class="btn btn-primary w-100">Register</button> 
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Register</button>
                         </form>
+
+                        <div class="text-center mt-3">
+                            <a href="login.jsp">Already have an account? Login</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>
+
 <%@ include file="footer.jsp" %>

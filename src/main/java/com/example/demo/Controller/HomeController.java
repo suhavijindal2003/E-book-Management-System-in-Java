@@ -3,8 +3,10 @@ package com.example.demo.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-
+import com.example.demo.model.User;
 @Controller
 public class HomeController {
 
@@ -50,11 +52,16 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/register")
-    public String showRegister() {
-        return "register";
-    }
+  @GetMapping("/register")
+public String showRegisterPage() {
+    return "register";
+}
 
+@PostMapping("/register")
+public String processRegistration(@ModelAttribute User user) {
+    // logic to save user
+    return "main";
+}
 
 
     @GetMapping("/recentbooks")

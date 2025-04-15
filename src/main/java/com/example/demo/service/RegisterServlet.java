@@ -1,17 +1,21 @@
 package com.example.demo.service;
 
-import javax.servlet.annotation.WebServlet;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
 
-import com.example.demo.model.User;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.example.demo.comDAO.UserDAOImpl;
+import com.example.demo.model.User;
 import com.example.demo.repository.DBConnect;
 
 @WebServlet("/register")  // Make sure this URL pattern matches your web.xml or servlet-mapping configuration
 public class RegisterServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void Post(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // Get parameters from the request
         String name = req.getParameter("name");
         String email = req.getParameter("email");

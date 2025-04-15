@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import com.example.demo.model.User;
 
-
 public class UserDAOImpl implements UserController {
     private Connection conn;
 
@@ -51,14 +50,14 @@ public class UserDAOImpl implements UserController {
             String sql = "SELECT * FROM users WHERE email=? AND password=?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
-            ps.setString(2, password);  // Consider hashing and comparing hashed passwords
+            ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                User user = new User();
+                // user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));  // Store the raw password or hash appropriately
+                user.setPassword(rs.getString("password"));
                 user.setPhno(rs.getString("phone"));
                 user.setAddress(rs.getString("address"));
             }

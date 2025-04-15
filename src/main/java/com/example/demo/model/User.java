@@ -16,38 +16,36 @@ public class User implements Serializable {
     private String state;
     private String pincode;
 
-    // Default Constructor
-  
-// Constructor for user registration (without ID, address, etc.)
-public User(String name, String email, String phno, String password) {
-    this.name = name;
-    this.email = email;
-    this.phno = phno;
-    this.password = password;
-  
-}
+    // ✅ Default Constructor (Required for Spring MVC binding)
+    public User() {}
 
-public User(int id, String name, String email,String password, String phno, String address) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.phno = phno;
-    this.address = address;
-   
-}
-public User(String name, String email,String password, String phno, String address) {
-   
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.phno = phno;
-    this.address = address;
-   
-}
+    // Constructor for user registration (without ID, address, etc.)
+    public User(String name, String email, String phno, String password) {
+        this.name = name;
+        this.email = email;
+        this.phno = phno;
+        this.password = password;
+    }
 
-    // Parameterized Constructor
-    public User(int id, String name, String email, String password, String phno, 
+    public User(int id, String name, String email, String password, String phno, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phno = phno;
+        this.address = address;
+    }
+
+    public User(String name, String email, String password, String phno, String address) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phno = phno;
+        this.address = address;
+    }
+
+    // Full parameterized constructor
+    public User(int id, String name, String email, String password, String phno,
                 String address, String landmark, String city, String state, String pincode) {
         this.id = id;
         this.name = name;
@@ -95,9 +93,9 @@ public User(String name, String email,String password, String phno, String addre
     // Secure toString() - Hides password
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + 
-               ", password=****, phno=" + phno + ", address=" + address + 
-               ", landmark=" + landmark + ", city=" + city + ", state=" + state + 
+        return "User [id=" + id + ", name=" + name + ", email=" + email +
+               ", password=****, phno=" + phno + ", address=" + address +
+               ", landmark=" + landmark + ", city=" + city + ", state=" + state +
                ", pincode=" + pincode + "]";
     }
 }
