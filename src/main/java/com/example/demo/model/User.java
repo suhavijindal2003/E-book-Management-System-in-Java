@@ -2,13 +2,31 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "users") // MySQL table name will be `users`
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment in MySQL
     private int id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
     private String phno;
     private String address;
     private String landmark;
@@ -16,47 +34,15 @@ public class User implements Serializable {
     private String state;
     private String pincode;
 
-    // ✅ Default Constructor (Required for Spring MVC binding)
+    // Default constructor
     public User() {}
 
-    // Constructor for user registration (without ID, address, etc.)
+    // Other constructors
     public User(String name, String email, String phno, String password) {
         this.name = name;
         this.email = email;
         this.phno = phno;
         this.password = password;
-    }
-
-    public User(int id, String name, String email, String password, String phno, String address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phno = phno;
-        this.address = address;
-    }
-
-    public User(String name, String email, String password, String phno, String address) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phno = phno;
-        this.address = address;
-    }
-
-    // Full parameterized constructor
-    public User(int id, String name, String email, String password, String phno,
-                String address, String landmark, String city, String state, String pincode) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phno = phno;
-        this.address = address;
-        this.landmark = landmark;
-        this.city = city;
-        this.state = state;
-        this.pincode = pincode;
     }
 
     // Getters and Setters
@@ -90,7 +76,6 @@ public class User implements Serializable {
     public String getPincode() { return pincode; }
     public void setPincode(String pincode) { this.pincode = pincode; }
 
-    // Secure toString() - Hides password
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", email=" + email +

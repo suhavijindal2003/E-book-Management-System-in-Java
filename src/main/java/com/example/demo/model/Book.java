@@ -20,9 +20,21 @@ public class Book {
     private String email;
     private double price;
 
-    // Constructors
+    // Default constructor (Required by Hibernate)
     public Book() {}
 
+    // Constructor with all fields (excluding id)
+    public Book(String bookName, String author, String category, String status, String photo, String email, double price) {
+        this.bookName = bookName;
+        this.author = author;
+        this.category = category;
+        this.status = status;
+        this.photo = photo;
+        this.email = email;
+        this.price = price;
+    }
+
+    // Constructor with id (for updating existing book in DB)
     public Book(Long id, String bookName, String author, String category, String status, String photo, String email, double price) {
         this.id = id;
         this.bookName = bookName;
@@ -34,7 +46,7 @@ public class Book {
         this.price = price;
     }
 
-    // Getters & Setters
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -58,4 +70,11 @@ public class Book {
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", bookName=" + bookName + ", author=" + author +
+               ", category=" + category + ", status=" + status + ", photo=" + photo + 
+               ", email=" + email + ", price=" + price + "]";
+    }
 }

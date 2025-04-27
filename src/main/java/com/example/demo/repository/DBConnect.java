@@ -2,18 +2,18 @@ package com.example.demo.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 public class DBConnect {
     private static Connection conn;
 
     public static Connection getConn() {
         try {
             if (conn == null || conn.isClosed()) {
-                // Update these values as per your MySQL setup
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver"); // Load MySQL driver
                 conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/demo", // Change db name here
-                        "root",                                 // Your MySQL username
-                        "password"                              // Your MySQL password
+                        "jdbc:mysql://localhost:3306/demo", // Database URL
+                        "root",                              // MySQL username
+                        "password"                           // MySQL password
                 );
             }
         } catch (Exception e) {

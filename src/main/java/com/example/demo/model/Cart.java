@@ -1,6 +1,14 @@
 // package model;
 package com.example.demo.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "cart")
 public class Cart {
+    @Id
     private int cartId;
     private int bookId;
     private int userId;
