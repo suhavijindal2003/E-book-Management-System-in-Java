@@ -53,7 +53,7 @@ public class UserDAOImpl implements UserController {
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                // user = new User();
+                user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));

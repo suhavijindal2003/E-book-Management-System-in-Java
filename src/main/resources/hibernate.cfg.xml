@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-5.3.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/demo</property> <!-- your database -->
+        <property name="hibernate.connection.username">root</property> <!-- your mysql username -->
+        <property name="hibernate.connection.password">password</property> <!-- your mysql password -->
+
+        <!-- Hibernate settings -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property> 
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Mapping your entity class -->
+        <mapping class="com.example.demo.model.Book" />
+        <!-- Add more <mapping class="..."/> if you have more models -->
+    </session-factory>
+</hibernate-configuration>

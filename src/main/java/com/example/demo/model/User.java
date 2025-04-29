@@ -44,6 +44,23 @@ public class User implements Serializable {
         this.phno = phno;
         this.password = password;
     }
+    public User(String name, String email, String password,String phno,String address) {
+        this.name = name;
+        this.email = email;
+        this.phno = phno;
+        this.password = password;
+        this.address = address;
+    }
+
+    public User(int id, String name, String email, String password, String phone,String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.phno = phone;
+    }
+    
 
     // Getters and Setters
     public int getId() { return id; }

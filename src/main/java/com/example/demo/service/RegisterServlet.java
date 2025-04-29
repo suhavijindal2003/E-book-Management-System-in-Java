@@ -13,34 +13,37 @@ import com.example.demo.comDAO.UserDAOImpl;
 import com.example.demo.model.User;
 import com.example.demo.repository.DBConnect;
 
-@WebServlet("/register")  // Make sure this URL pattern matches your web.xml or servlet-mapping configuration
+@WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-    protected void Post(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        // Get parameters from the request
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String phone = req.getParameter("phone");
-        String address = req.getParameter("address");
 
-        // Create a User object with plain password (not hashed)
-        User user = new User(name, email, password, phone, address);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String name = req.getParameter("name");  // input field name="name" in JSP
+            String email = req.getParameter("email");
+            String password = req.getParameter("password");
+            String phone = req.getParameter("phone");
+            String address = req.getParameter("address");
 
-        // Initialize DAO and DB connection
-        UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
+            User user = new User();
+            user.setName(name);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setPhno(phone);
+            user.setAddress(address);
 
-        // Create a session to store messages
-        HttpSession session = req.getSession();
-        
-        // Register the user
-        if (dao.userRegister(user)) {
-            // If registration is successful, set success message
-            session.setAttribute("succMsg", "Registered successfully.");
-            res.sendRedirect("register.jsp");
-        } else {
-            // If registration fails, set failure message
-            session.setAttribute("failMsg", "Something went wrong!");
-            res.sendRedirect("register.jsp");
+            UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
+            HttpSession session = req.getSession();
+
+            if (dao.userRegister(user)) {
+                session.setAttribute("succMsg", "Registered successfully.");
+                resp.sendRedirect("register.jsp");
+            } else {
+                session.setAttribute("failMsg", "Something went wrong!");
+                resp.sendRedirect("register.jsp");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
