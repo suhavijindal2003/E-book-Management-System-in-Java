@@ -95,13 +95,7 @@
         <artifactId>spring-boot-devtools</artifactId>
         <scope>runtime</scope>
     </dependency>
- <!-- Servlet API (for Java EE or Jakarta EE applications) -->
-    <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>4.0.1</version>
-        <scope>provided</scope>
-    </dependency>
+
     <!-- JSTL (for using tags like <c:forEach>) -->
    <dependency>
         <groupId>org.hibernate.orm</groupId>
