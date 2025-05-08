@@ -1,12 +1,16 @@
 package com.example.demo.service;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.example.demo.comDAO.UserDAOImpl;
-import com.example.demo.repository.DBConnect;
 import com.example.demo.model.User;
+import com.example.demo.repository.DBConnect;
 
 public class UpdateProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
