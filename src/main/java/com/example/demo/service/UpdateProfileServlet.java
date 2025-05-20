@@ -1,8 +1,8 @@
 package com.example.demo.service;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,26 +12,52 @@ import com.example.demo.comDAO.UserDAOImpl;
 import com.example.demo.model.User;
 import com.example.demo.repository.DBConnect;
 
+@WebServlet("/update_profile")
 public class UpdateProfileServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String phone = req.getParameter("phone");
-        String address = req.getParameter("address");
-        User user = new User(id,name, email,password, phone,address);
-      
 
-        UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
-        HttpSession session = req.getSession();
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
 
-        if (dao.updateUser(user)) {
-            session.setAttribute("succMsg", "Profile updated.");
-        } else {
-            session.setAttribute("failMsg", "Something went wrong.");
+            int id = Integer.parseInt(req.getParameter("id"));
+            String name = req.getParameter("fname");
+            String email = req.getParameter("email");
+            String phno = req.getParameter("phno");
+            String password = req.getParameter("password");
+
+            User us = new User();
+            us.setId(id);
+            us.setName(name);
+            us.setEmail(email);
+            us.setPhno(phno);
+            
+            HttpSession session=req.getSession();
+
+            UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
+
+            boolean f = dao.checkPassword(id, password);
+            if (f) {
+                boolean f2 = dao.updateProfile(us);
+                if (f2) {
+                    session.setAttribute("succMsg", "Profile Update Successfully..");
+                    resp.sendRedirect("edit_profile.jsp");
+
+                } else {
+
+                
+                session.setAttribute("failedMsg", "Something wrong on server");
+                resp.sendRedirect("edit_profile.jsp");
+                
+                }
+            } else {
+                 session.setAttribute("failedMsg", "Your Password is incorrect");
+                resp.sendRedirect("edit_profile.jsp");
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        res.sendRedirect("edit_profile.jsp");
     }
+
 }

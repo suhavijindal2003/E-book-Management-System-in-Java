@@ -1,8 +1,5 @@
 package com.example.demo.model;
 
-import java.io.Serializable;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,23 +7,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users") // MySQL table name will be `users`
-public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "users") // Make sure your DB table is named 'users'
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment in MySQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String password;
-
     private String phno;
     private String address;
     private String landmark;
@@ -34,35 +24,12 @@ public class User implements Serializable {
     private String state;
     private String pincode;
 
-    // Default constructor
-    public User() {}
-
-    // Other constructors
-    public User(String name, String email, String phno, String password) {
-        this.name = name;
-        this.email = email;
-        this.phno = phno;
-        this.password = password;
-    }
-    public User(String name, String email, String password,String phno,String address) {
-        this.name = name;
-        this.email = email;
-        this.phno = phno;
-        this.password = password;
-        this.address = address;
+    public User() {
+        super();
     }
 
-    public User(int id, String name, String email, String password, String phone,String address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.password = password;
-        this.phno = phone;
-    }
-    
+    // Getters and setters...
 
-    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -95,9 +62,17 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email +
-               ", password=****, phno=" + phno + ", address=" + address +
-               ", landmark=" + landmark + ", city=" + city + ", state=" + state +
-               ", pincode=" + pincode + "]";
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phno='" + phno + '\'' +
+                ", address='" + address + '\'' +
+                ", landmark='" + landmark + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", pincode='" + pincode + '\'' +
+                '}';
     }
 }

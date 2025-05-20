@@ -1,9 +1,7 @@
-package com.example.demo.service;
-import com.example.demo.comDAO.BookDAOImpl;
-import com.example.demo.repository.DBConnect;
-import com.example.demo.model.BookDtls;
+package com.example.demo.AdminServlet;
 import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,25 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-@WebServlet("/add_old_book")
+import com.example.demo.comDAO.BookDAOImpl;
+import com.example.demo.model.BookDtls;
+import com.example.demo.repository.DBConnect;
+
+@WebServlet("/add_books")
 @MultipartConfig
-public class AddOldBook extends HttpServlet{
-    
+public class BooksAdd extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String bookName = req.getParameter("bName");
             String author = req.getParameter("author");
             String price = req.getParameter("price");
-            String categories = "Old";
-            String status = "Active";
+            String categories = req.getParameter("categories");
+            String status = req.getParameter("status");
             Part part = req.getPart("bimg");
             String fileName = part.getSubmittedFileName();
-            
-            String useremail=req.getParameter("user");
-            
 
-            BookDtls b = new BookDtls(bookName, author, price, categories, status, fileName, useremail);
+            BookDtls b = new BookDtls(bookName, author, price, categories, status, fileName, "admin");
 
             BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
 
@@ -48,12 +47,12 @@ public class AddOldBook extends HttpServlet{
                 part.write(path + File.separator + fileName);
 
                 session.setAttribute("succMsg", "Book Add Successfully");
-                resp.sendRedirect("sell_book.jsp");
+                resp.sendRedirect("admin/add_books.jsp");
 
             } else {
 
                 session.setAttribute("failedMsg", "Something wrong on Server");
-                resp.sendRedirect("sell_book.jsp");
+                resp.sendRedirect("admin/add_books.jsp");
 
             }
 
@@ -64,7 +63,3 @@ public class AddOldBook extends HttpServlet{
     }
 
 }
-
-
-    
-    

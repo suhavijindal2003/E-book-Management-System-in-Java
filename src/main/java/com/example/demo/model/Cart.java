@@ -1,44 +1,97 @@
-// package model;
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cart")
 public class Cart {
+
     @Id
-    private int cartId;
-    private int bookId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int cid;
+
+    private int bid;
+
     private int userId;
+
     private String bookName;
+
     private String author;
-    private double price;
-    private double totalPrice;
 
-    // Constructors
-    public Cart() {}
+    private Double price;
 
-    // Getters & Setters
-    public int getCartId() { return cartId; }
-    public void setCartId(int cartId) { this.cartId = cartId; }
+    private Double totalPrice;
 
-    public int getBookId() { return bookId; }
-    public void setBookId(int bookId) { this.bookId = bookId; }
+    public Cart() {
+        super();
+    }
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+    public int getCid() {
+        return cid;
+    }
 
-    public String getBookName() { return bookName; }
-    public void setBookName(String bookName) { this.bookName = bookName; }
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
 
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public int getBid() {
+        return bid;
+    }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
 
-    public double getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "cid=" + cid +
+                ", bid=" + bid +
+                ", userId=" + userId +
+                ", bookName='" + bookName + '\'' +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }

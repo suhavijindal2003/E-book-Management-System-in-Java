@@ -1,34 +1,107 @@
 package com.example.demo.service;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import com.example.demo.repository.DBConnect;
+import com.example.demo.comDAO.CartDAOImpl;
 
 import com.example.demo.model.Cart;
-import com.example.demo.comDAO.CartDAOImpl;
-import com.example.demo.repository.DBConnect;
-import com.example.demo.comDAO.cartdao;
 import com.example.demo.comDAO.BookOrderImpl;
-import com.example.demo.comDAO.BookOrderDAO;
+import com.example.demo.model.Book;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/order")
 public class OrderServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        int uid = Integer.parseInt(req.getParameter("uid"));
 
-        CartDAOImpl cartDao = new CartDAOImpl(DBConnect.getConn());
-        List<Cart> cartList = cartDao.getBooksByUser(uid);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
 
-        BookOrderImpl orderDao = new BookOrderImpl(DBConnect.getConn());
-        boolean f = orderDao.saveOrder(cartList);
+            HttpSession session = req.getSession();
 
-        HttpSession session = req.getSession();
-        if (f) {
-            session.setAttribute("succMsg", "Order placed successfully.");
-            res.sendRedirect("order_success.jsp");
-        } else {
-            session.setAttribute("failMsg", "Order failed.");
-            res.sendRedirect("checkout.jsp");
+            int id = Integer.parseInt(req.getParameter("id"));
+
+            String name = req.getParameter("username");
+            String email = req.getParameter("email");
+            String phno = req.getParameter("phno");
+            String address = req.getParameter("address");
+            String landmark = req.getParameter("landmark");
+            String city = req.getParameter("city");
+            String state = req.getParameter("state");
+            String pincode = req.getParameter("pincode");
+            String paymentType = req.getParameter("payment");
+
+            String fullAdd = address + "," + landmark + "," + city + "," + state + "," + pincode;
+
+            /*System.out.println(name+" "+email+" "+phno+" "+fullAdd+" "+paymentType);*/
+            CartDAOImpl dao = new CartDAOImpl(DBConnect.getConn());
+            
+            List<Cart> blist = dao.getBookByUser(id);
+
+            if (blist.isEmpty()) {
+                
+                session.setAttribute("failedMsg", "Add Item");
+                
+                resp.sendRedirect("checkout.jsp");
+                
+
+            } else {
+                BookOrderImpl dao2 = new BookOrderImpl(DBConnect.getConn());
+
+                Book o = null;
+                ArrayList<Book> orderList = new ArrayList<Book>();
+
+                Random r = new Random();
+
+                for (Cart c : blist) {
+
+                    o = new Book();
+
+                    o.setOrderId("BOOK-ORD-00" + r.nextInt(1000));
+                    o.setUserName(name);
+                    o.setEmail(email);
+                    o.setPhno(phno);
+                    o.setFulladd(fullAdd);
+                    o.setBookName(c.getBookName());
+                    o.setAuthor(c.getAuthor());
+                    o.setPrice(c.getPrice() + " ");
+                    o.setPaymentType(paymentType);
+
+                    orderList.add(o);
+
+                    /*System.out.println(c.getBookName()+" "+c.getAuthor()+" "+c.getPrice());*/
+                }
+
+                if ("noselect".equals(paymentType)) {
+                    session.setAttribute("failedMsg", "Choose Payment Methods");
+                    resp.sendRedirect("checkout.jsp");
+                } else {
+
+                    boolean f = dao2.saveOrder(orderList);
+
+                    if (f) {
+                        resp.sendRedirect("order_success.jsp");
+
+                    } else {
+                        session.setAttribute("failedMsg", "Your Order Failed");
+                        resp.sendRedirect("checkout.jsp");
+                    }
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
+
 }

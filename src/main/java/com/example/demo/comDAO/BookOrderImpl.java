@@ -7,103 +7,132 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.model.Book;
-import com.example.demo.model.Cart;
+
 
 public class BookOrderImpl implements BookOrderDAO {
+
     private Connection conn;
 
     public BookOrderImpl(Connection conn) {
+        super();
         this.conn = conn;
+
     }
 
-    @Override
-    public boolean saveOrder(List<Cart> carts) {
-        boolean success = false;
+    public boolean saveOrder(List<Book> blist) {
+
+        boolean f = false;
         try {
-            String sql = "INSERT INTO orders(book_id, user_id, book_name, author, price, total_price) VALUES (?, ?, ?, ?, ?, ?)";
+
+            String sql = "insert into Book(order_id,user_name,email,address,phno,book_name,author,price,payment) values(?,?,?,?,?,?,?,?,?)";
+
+            conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            for (Cart cart : carts) {
-                ps.setInt(1, cart.getBookId());
-                ps.setInt(2, cart.getUserId());
-                ps.setString(3, cart.getBookName());
-                ps.setString(4, cart.getAuthor());
-                ps.setDouble(5, cart.getPrice());
-                ps.setDouble(6, cart.getTotalPrice());
+            for (Book b : blist) {
+                ps.setString(1, b.getOrderId());
+                ps.setString(2, b.getUserName());
+                ps.setString(3, b.getEmail());
+                ps.setString(4, b.getFulladd());
+                ps.setString(5, b.getPhno());
+                ps.setString(6, b.getBookName());
+                ps.setString(7, b.getAuthor());
+                ps.setString(8, b.getPrice());
+                ps.setString(9, b.getPaymentType());
                 ps.addBatch();
+
             }
 
-            int[] result = ps.executeBatch();
-            success = result.length == carts.size();
+            int[] count = ps.executeBatch();
+            conn.commit();
+            f = true;
+            conn.setAutoCommit(true);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return success;
+
+        return f;
+
     }
 
-    // 🔍 Search Books by keyword (title, author, or category)
-    public List<Book> searchBooks(String keyword) {
-        List<Book> bookList = new ArrayList<>();
+    public List<Book> getBook(String email) {
+
+        List<Book> list = new ArrayList<Book>();
+
+        Book o = null;
+        
+        
+
         try {
-            String sql = "SELECT * FROM books WHERE book_name LIKE ? OR author LIKE ? OR category LIKE ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            String likePattern = "%" + keyword + "%";
-            ps.setString(1, likePattern);
-            ps.setString(2, likePattern);
-            ps.setString(3, likePattern);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Book book = new Book();
-                book.setId(rs.getLong("id"));
-                book.setBookName(rs.getString("book_name"));
-                book.setAuthor(rs.getString("author"));
-                book.setCategory(rs.getString("category"));
-                book.setStatus(rs.getString("status"));
-                book.setPhoto(rs.getString("photo"));
-                book.setEmail(rs.getString("email"));
-                book.setPrice(rs.getDouble("price"));
-
-                bookList.add(book);
-            }
+            String sql="select * from Book where email=?";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs=ps.executeQuery();
+            
+            while(rs.next())
+                    {
+                        o=new Book();
+                        o.setId(rs.getInt(1));
+                        o.setOrderId(rs.getString(2));
+                        o.setUserName(rs.getString(3));
+                        o.setEmail(rs.getString(4));
+                        o.setFulladd(rs.getString(5));
+                        o.setPhno(rs.getString(6));
+                        o.setBookName(rs.getString(7));
+                        o.setAuthor(rs.getString(8));
+                        o.setPrice(rs.getString(9));
+                        o.setPaymentType(rs.getString(10));
+                        list.add(o);       
+                        
+                    }
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return bookList;
+
+        return list;
+
     }
 
-  
-    public boolean deleteBookById(int id) {
-        boolean success = false;
+
+    public List<Book> getAllOrder() {
+        
+        
+    List<Book> list = new ArrayList<Book>();
+
+        Book o = null;
+        
+        
+
         try {
-            String sql = "DELETE FROM books WHERE id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            int rows = ps.executeUpdate();
-            success = rows > 0;
+            String sql="select * from Book";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            
+            ResultSet rs=ps.executeQuery();
+            
+            while(rs.next())
+                    {
+                        o=new Book();
+                        o.setId(rs.getInt(1));
+                        o.setOrderId(rs.getString(2));
+                        o.setUserName(rs.getString(3));
+                        o.setEmail(rs.getString(4));
+                        o.setFulladd(rs.getString(5));
+                        o.setPhno(rs.getString(6));
+                        o.setBookName(rs.getString(7));
+                        o.setAuthor(rs.getString(8));
+                        o.setPrice(rs.getString(9));
+                        o.setPaymentType(rs.getString(10));
+                        list.add(o);       
+                        
+                    }
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return success;
-    }
-    public boolean addBook(Book book) {
-        boolean success = false;
-        try {
-            String sql = "INSERT INTO books(book_name, author, category, status, photo, email, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, book.getBookName());
-            ps.setString(2, book.getAuthor());
-            ps.setString(3, book.getCategory());
-            ps.setString(4, book.getStatus());
-            ps.setString(5, book.getPhoto());
-            ps.setString(6, book.getEmail());
-            ps.setDouble(7, book.getPrice());
 
-            int rows = ps.executeUpdate();
-            success = rows > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return success;
+        return list;
     }
+
 }

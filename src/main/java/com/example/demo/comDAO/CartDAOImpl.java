@@ -10,78 +10,95 @@ import java.util.List;
 import com.example.demo.model.Cart;
 
 public class CartDAOImpl implements cartdao {
+
     private Connection conn;
 
-    // Constructor to initialize the connection
     public CartDAOImpl(Connection conn) {
         this.conn = conn;
     }
 
-    // Add book to the cart
     @Override
-    public boolean addToCart(Cart cart) {
-        boolean success = false;
-        String sql = "INSERT INTO cart(book_id, user_id, book_name, author, price, total_price) VALUES (?, ?, ?, ?, ?, ?)";
+    public boolean addCart(Cart c) {
+        boolean f = false;
+        try {
 
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, cart.getBookId());
-            ps.setInt(2, cart.getUserId());
-            ps.setString(3, cart.getBookName());
-            ps.setString(4, cart.getAuthor());
-            ps.setDouble(5, cart.getPrice());
-            ps.setDouble(6, cart.getTotalPrice());
+            String sql = "insert into cart(bid, uid, bookName, author, price, total_price) values(?,?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, c.getBid());
+            ps.setInt(2, c.getUserId());
+            ps.setString(3, c.getBookName());
+            ps.setString(4, c.getAuthor());
+            ps.setDouble(5, c.getPrice());
+            ps.setDouble(6, c.getTotalPrice());
 
-            int rowsAffected = ps.executeUpdate();
-            success = rowsAffected == 1;  // Check if the insert was successful
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return success;
-    }
-
-    // Retrieve all books in the cart for a specific user
-    @Override
-    public List<Cart> getBooksByUser(int userId) {
-        List<Cart> cartList = new ArrayList<>();
-        String sql = "SELECT * FROM cart WHERE user_id = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Cart cart = new Cart();
-                    cart.setCartId(rs.getInt("cart_id"));
-                    cart.setBookId(rs.getInt("book_id"));
-                    cart.setUserId(rs.getInt("user_id"));
-                    cart.setBookName(rs.getString("book_name"));
-                    cart.setAuthor(rs.getString("author"));
-                    cart.setPrice(rs.getDouble("price"));
-                    cart.setTotalPrice(rs.getDouble("total_price"));
-                    cartList.add(cart);
-                }
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                f = true;
             }
-        } catch (SQLException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return cartList;
+        return f;
     }
 
-    // Remove a book from the cart
     @Override
-    public boolean removeBook(int bookId, int userId, int cartId) {
-        boolean success = false;
-        String sql = "DELETE FROM cart WHERE book_id = ? AND user_id = ? AND cart_id = ?";
+    public List<Cart> getBookByUser(int userId) {
+        List<Cart> list = new ArrayList<>();
+        try {
 
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, bookId);
-            ps.setInt(2, userId);
-            ps.setInt(3, cartId);
+            String sql = "select * from cart where uid=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, userId);
 
-            int rowsAffected = ps.executeUpdate();
-            success = rowsAffected == 1;  // Check if the delete was successful
-        } catch (SQLException e) {
+            ResultSet rs = ps.executeQuery();
+
+            double totalPrice = 0;
+            while (rs.next()) {
+                Cart c = new Cart();
+                c.setCid(rs.getInt(1));
+                c.setBid(rs.getInt(2));
+                c.setUserId(rs.getInt(3));
+                c.setBookName(rs.getString(4));
+                c.setAuthor(rs.getString(5));
+                c.setPrice(rs.getDouble(6));
+
+                totalPrice += rs.getDouble(7); // Add the book price to the total price
+                c.setTotalPrice(totalPrice); // Set the total price for the cart
+
+                list.add(c);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return success;
+        return list;
+    }
+
+ 
+    public boolean deleteBook(int bid,int uid, int cid) {
+        boolean f=false;
+      
+        try{
+            
+         String sql="delete from cart where bid=? and uid=? and cid=?";
+        PreparedStatement ps=conn.prepareStatement(sql);
+        ps.setInt(1, bid);
+        ps.setInt(2,uid);
+        ps.setInt(3,cid);
+        int i=ps.executeUpdate();
+        
+        if(i==1)
+        {
+            f=true;
+        
+        }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    
+                
+        return f;
+    
     }
 }

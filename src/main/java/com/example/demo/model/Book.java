@@ -1,80 +1,137 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "book_order")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    private String bookName;
-    private String author;
-    private String category;
-    private String status;
-    private String photo;
+    @Column(name = "order_id")
+    private String orderId;
+
+    @Column(name = "user_name")
+    private String userName;
+
     private String email;
-    private double price;
 
-    // Default constructor (Required by Hibernate)
-    public Book() {}
+    private String phno;
 
-    // Constructor with all fields (excluding id)
-    public Book(String bookName, String author, String category, String status, String photo, String email, double price) {
-        this.bookName = bookName;
-        this.author = author;
-        this.category = category;
-        this.status = status;
-        this.photo = photo;
-        this.email = email;
-        this.price = price;
+    @Column(name = "full_address")
+    private String fulladd;
+
+    @Column(name = "book_name")
+    private String bookName;
+
+    private String author;
+
+    private String price;
+
+    @Column(name = "payment_type")
+    private String paymentType;
+
+    public Book() {
+        super();
     }
 
-    // Constructor with id (for updating existing book in DB)
-    public Book(Long id, String bookName, String author, String category, String status, String photo, String email, double price) {
+    // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.bookName = bookName;
-        this.author = author;
-        this.category = category;
-        this.status = status;
-        this.photo = photo;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhno() {
+        return phno;
+    }
+
+    public void setPhno(String phno) {
+        this.phno = phno;
+    }
+
+    public String getFulladd() {
+        return fulladd;
+    }
+
+    public void setFulladd(String fulladd) {
+        this.fulladd = fulladd;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getPaymentType() {
+        return paymentType;
+    }
 
-    public String getBookName() { return bookName; }
-    public void setBookName(String bookName) { this.bookName = bookName; }
-
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
-
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getPhoto() { return photo; }
-    public void setPhoto(String photo) { this.photo = photo; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", bookName=" + bookName + ", author=" + author +
-               ", category=" + category + ", status=" + status + ", photo=" + photo + 
-               ", email=" + email + ", price=" + price + "]";
+        return "Book{" +
+                "id=" + id +
+                ", orderId='" + orderId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", phno='" + phno + '\'' +
+                ", fulladd='" + fulladd + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", author='" + author + '\'' +
+                ", price='" + price + '\'' +
+                ", paymentType='" + paymentType + '\'' +
+                '}';
     }
 }

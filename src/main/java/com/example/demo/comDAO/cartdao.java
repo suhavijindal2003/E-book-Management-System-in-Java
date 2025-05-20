@@ -4,7 +4,9 @@ import java.util.List;
 import com.example.demo.model.Cart;
 
 public interface cartdao {
-    public boolean addToCart(Cart cart);
-    public List<Cart> getBooksByUser(int userId);
-    public boolean removeBook(int bookId, int userId, int cartId);
+    public boolean addCart(Cart c);
+    
+    public List<Cart> getBookByUser(int userId);
+    
+    public boolean deleteBook(int bid,int uid, int cid);
 }
